@@ -1,0 +1,199 @@
+
+let navbar (theme : Theme) (isClassicPage: Bool): Stdlib.Html.Node =
+  let bg =
+    match theme with
+    | DarkNext -> "bg-light-background "
+    | DarkClassic -> "bg-dark-gray text-white"
+  
+  let logopath = 
+    match (theme, isClassicPage) with
+    | DarkNext, _ -> "./img/wordmark-light-transparent@2x.png"
+    | DarkClassic, true -> "./img/wordmark-dark-transparent.png"
+    | DarkClassic, false -> "../img/wordmark-dark-transparent.png"
+  
+  let dropdownLabel =
+    match theme with
+    | DarkNext -> "hover:text-purple"
+    | DarkClassic -> "hover:text-classic-purple"
+  
+  let dropdownBg = 
+    match theme with
+    | DarkNext -> "bg-light-background text-black border-blue"
+    | DarkClassic -> "bg-dark-gray text-white border-classic-purple"
+  
+  let dropdownElemHoverBg = 
+    match theme with
+    | DarkNext -> "hover:bg-blue hover:text-white"
+    | DarkClassic -> "hover:bg-classic-purple hover:text-white"
+  
+  let dropdownOrButtons =
+    if isClassicPage then 
+      Stdlib.Html.div 
+          [("class", Stdlib.Option.Option.Some("md:inline-block relative"))]
+          [ Stdlib.Html.ul 
+              [ ("class", Stdlib.Option.Option.Some("flex justify-center items-center md:space-x-8 p-6 md:p-0 md:mt-4 text-sm md:text-base")) ]
+              [ Stdlib.Html.li 
+                  [ ("class", Stdlib.Option.Option.Some("cursor-pointer px-2 py-1 mx-2 md:mx-0 md:px-4 md:py-2 rounded hover:text-blue")) ]
+                  [ Stdlib.Html.a 
+                      [ ("href", Stdlib.Option.Option.Some("https://login.darklang.com")) ]
+                      [ Stdlib.Html.stringNode "Log in" ]]
+                
+                Stdlib.Html.li 
+                  [ ("class", Stdlib.Option.Option.Some("bg-classic-purple hover:bg-purple text-white cursor-pointer px-2 py-1 md:px-4 md:py-2 rounded")) ]
+                  [ Stdlib.Html.a 
+                      [ ("href", Stdlib.Option.Option.Some("./classic/signup")) ]
+                      [ Stdlib.Html.stringNode "Sign up" ] ]
+              ]
+          ]
+    else 
+      Stdlib.Html.button 
+        [ ("type", Stdlib.Option.Option.Some("button"))
+          ("class", Stdlib.Option.Option.Some("text-center mr-3 md:mr-0 md:pt-4")) ]
+        [ Stdlib.Html.div 
+            [ ("id", Stdlib.Option.Option.Some("dark-classic-btn"))
+              ("class", Stdlib.Option.Option.Some("md:inline-block relative")) ]
+            [ Stdlib.Html.div 
+                [ ("class", Stdlib.Option.Option.Some($"font-semibold inline-flex items-center px-3 py-2 {dropdownLabel}")) ]
+                [ Stdlib.Html.span 
+                    [ ("class", Stdlib.Option.Option.Some("mr-1 text-xs md:text-base")) ]
+                    [ Stdlib.Html.stringNode("Darklang classic") ]
+
+                  Stdlib.Html.svg 
+                    [ ("id", Stdlib.Option.Option.Some("arrowIcon"))
+                      ("class", Stdlib.Option.Option.Some("fill-current h-4 w-4 transform transition duration-200 ease-in-out"))
+                      ("xmlns", Stdlib.Option.Option.Some("http://www.w3.org/2000/sv"))
+                      ("viewBox", Stdlib.Option.Option.Some("0 0 20 20")) ]
+                    [ Stdlib.Html.path 
+                        [ ("d", Stdlib.Option.Option.Some("M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z")) ] ]    
+                ]
+
+              Stdlib.Html.div 
+                [ ("id", Stdlib.Option.Option.Some("dark-classic-menu"))
+                  ("class", Stdlib.Option.Option.Some($"absolute hidden w-full border rounded-lg {dropdownBg} "))]
+                [ Stdlib.Html.ul 
+                    []
+                    [ Stdlib.Html.li 
+                        [ ("class", Stdlib.Option.Option.Some($"{dropdownElemHoverBg} rounded-t-lg")) ]
+                        [ Stdlib.Html.a 
+                            [ ("class", Stdlib.Option.Option.Some("py-2 px-4 block mx-2 border-b border-b-blue/25"))
+                              ("href", Stdlib.Option.Option.Some("/classic")) ]
+                            [ Stdlib.Html.stringNode("About" )]]
+
+                      Stdlib.Html.li 
+                        [ ("class", Stdlib.Option.Option.Some(dropdownElemHoverBg)) ]
+                        [ Stdlib.Html.a 
+                            [ ("class", Stdlib.Option.Option.Some("py-2 px-4 block mx-2 border-b border-b-blue/25"))
+                              ("href", Stdlib.Option.Option.Some("https://login.darklang.com")) ]
+                            [ Stdlib.Html.stringNode("Log in") ]]
+
+                      Stdlib.Html.li 
+                        [ ("class", Stdlib.Option.Option.Some($"{dropdownElemHoverBg} rounded-b-lg")) ]
+                        [ Stdlib.Html.a 
+                            [ ("class", Stdlib.Option.Option.Some("py-2 px-4 block"))
+                              ("href", Stdlib.Option.Option.Some("./classic/signup")) ]
+                            [ Stdlib.Html.stringNode "Sign up" ] ]
+                    ]
+                ]
+            ]
+        ]
+          
+  Stdlib.Html.div 
+    [ ("class", Stdlib.Option.Option.Some($"sticky w-full top-0 left-0 z-50 {bg}") )]
+    [ banner ()
+      Stdlib.Html.nav
+        [ ("class", Stdlib.Option.Option.Some("container flex flex-wrap items-center justify-between mx-auto p-4")) ]
+        [ Stdlib.Html.a
+            [ ("href", Stdlib.Option.Option.Some("/"))
+              ("class", Stdlib.Option.Option.Some("flex items-center")) ]
+            [ Stdlib.Html.img
+                [ ("src", Stdlib.Option.Option.Some(logopath))
+                  ("class", Stdlib.Option.Option.Some("h-12 mr-3"))
+                  ("alt", Stdlib.Option.Option.Some("Darklang logo")) ] ]
+        
+          Stdlib.Html.div 
+            [ ("class", Stdlib.Option.Option.Some("flex md:order-2 justify-center items-center")) ]
+            [ dropdownOrButtons
+              
+              Stdlib.Html.button 
+                [ ("id", Stdlib.Option.Option.Some("menu-button"))
+                  ("type", Stdlib.Option.Option.Some("button"))
+                  ("class", Stdlib.Option.Option.Some("inline-flex items-center md:hidden"))
+                  ("aria-expanded", Stdlib.Option.Option.Some("false")) ]
+                [ Stdlib.Html.svg
+                    [ ("class", Stdlib.Option.Option.Some("w-6 h-6"))
+                      ("aria-hidden", Stdlib.Option.Option.Some("true"))
+                      ("fill", Stdlib.Option.Option.Some("currentColor"))
+                      ("viewBox", Stdlib.Option.Option.Some("0 0 20 20"))
+                      ("xmlns", Stdlib.Option.Option.Some("http://www.w3.org/2000/svg")) ]
+                    [ Stdlib.Html.path 
+                        [ ("fill-rule", Stdlib.Option.Option.Some("evenodd"))
+                          ("d", Stdlib.Option.Option.Some("M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"))
+                          ("clip-rule", Stdlib.Option.Option.Some("evenodd"))
+                        ]
+                    ]
+                ]
+            ]
+      
+          Stdlib.Html.div 
+            [ ("id", Stdlib.Option.Option.Some("menu"))
+              ("class", Stdlib.Option.Option.Some("rounded-b-lg bg-md:order-1 hidden md:flex bg-white/70 md:bg-transparent justify-between items-center w-full md:w-auto")) ]
+            [
+              Stdlib.Html.ul 
+                [ ("class", Stdlib.Option.Option.Some("flex flex-col md:flex-row md:space-x-8 p-6 md:p-0 mt-4")) ]
+                [ //  navItem theme "https://docs.darklang.com" "Documentation"
+                  navItem theme "https://blog.darklang.com" "Blog"
+                  navItem theme "https://darklang.com/discord" "Discord"
+                  navItem theme "https://github.com/darklang/dark" "GitHub"
+                  navItem theme "https://darklang.com/sponsor" "Sponsor us"                  
+                  darklangNextNavItem theme
+                ]
+            ]
+        ]
+    ]
+       
+
+
+let body () : Stdlib.Html.Node =
+  Stdlib.Html.body
+    [ ("class", Stdlib.Option.Option.Some("bg-light-background box-border m-0 p-0")) ]
+    [ (navbar Theme.DarkNext false )]
+
+let doc () : String =
+  ([ Stdlib.Html.html 
+        [("lang",Stdlib.Option.Option.Some("en"))] 
+        [ (head (Theme.DarkNext)); (body ()) ] 
+    ]
+  ) |> Stdlib.Html.document
+
+
+
+/// -----------------
+/// Fill Pages
+/// -----------------
+
+let fillHomePage () : Int64 =
+  let path = "public/old.html"
+  let content =
+    (doc ()) |> Stdlib.String.toBytes
+
+  match Builtin.fileWrite content path with
+  | Ok(_) -> 0L
+  | Error(err) ->
+    Builtin.printLine err
+    1L
+
+
+/// -----------------
+/// Main
+/// -----------------
+
+let main () : Int64 =
+  let homePage =
+    fillHomePage ()
+
+  if homePage == 0L then
+    0L
+  else
+    1L
+
+main ()

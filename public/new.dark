@@ -1,0 +1,185 @@
+let head () : Stdlib.Html.Node =
+  Stdlib.Html.head
+    []
+    [ (Stdlib.Html.title [] [ (Stdlib.Html.stringNode "Darklang") ])
+      (Stdlib.Html.meta [ ("charset", Stdlib.Option.Option.Some "UTF-8")])
+      (Stdlib.Html.meta
+        [ ("http-equiv", Stdlib.Option.Option.Some "X-UA-Compatible")
+          ("content", Stdlib.Option.Option.Some "IE=edge") ]
+      )
+      (Stdlib.Html.meta
+        [ ("name", Stdlib.Option.Option.Some "viewport")
+          ("content", Stdlib.Option.Option.Some "width=device-width, initial-scale=1.0") ]
+      )
+      (Stdlib.Html.link
+        [ ("rel", Stdlib.Option.Option.Some "stylesheet")
+          ("href", Stdlib.Option.Option.Some "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css")
+          ("integrity", Stdlib.Option.Option.Some "sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==")
+          ("crossorigin", Stdlib.Option.Option.Some "anonymous")
+          ("referrerpolicy", Stdlib.Option.Option.Some "no-referrer") ]
+      )
+      (Stdlib.Html.link
+        [ ("rel", Stdlib.Option.Option.Some "stylesheet")
+          ("href", Stdlib.Option.Option.Some "./style.css") ]
+      )
+    ]
+
+
+let navbar () : Stdlib.Html.Node =
+  let bg = "bg-light-background "
+
+  let logopath = "./img/wordmark-light-transparent@2x.png"
+
+  let dropdownLabel = "hover:text-purple"
+
+  let dropdownBg = "bg-light-background text-black border-blue"
+
+  let dropdownElemHoverBg = "hover:bg-blue hover:text-white"
+
+  let dropdownOrButtons =
+    Stdlib.Html.button
+      [ ("type", Stdlib.Option.Option.Some "button")
+        ("class", Stdlib.Option.Option.Some "text-center mr-3 md:mr-0 md:pt-4")
+      ]
+      [ Stdlib.Html.div
+          [ ("id", Stdlib.Option.Option.Some "dark-classic-btn")
+            ("class", Stdlib.Option.Option.Some "md:inline-block relative")
+          ]
+          [ Stdlib.Html.div
+              [ ("class", Stdlib.Option.Option.Some $"font-semibold inline-flex items-center px-3 py-2 {dropdownLabel}") ]
+              [ Stdlib.Html.span
+                  [ ("class", Stdlib.Option.Option.Some "mr-1 text-xs md:text-base") ]
+                  [ Stdlib.Html.stringNode "Darklang classic" ]
+
+                Stdlib.Html.svg
+                  [ ("id", Stdlib.Option.Option.Some "arrowIcon")
+                    ("class", Stdlib.Option.Option.Some "fill-current h-4 w-4 transform transition duration-200 ease-in-out")
+                    ("xmlns", Stdlib.Option.Option.Some "http://www.w3.org/2000/sv")
+                    ("viewBox", Stdlib.Option.Option.Some "0 0 20 20")
+                  ]
+                  [ Stdlib.Html.path
+                      [ ("d", Stdlib.Option.Option.Some "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z") ]
+                  ]
+              ]
+
+            Stdlib.Html.div
+              [ ("id", Stdlib.Option.Option.Some "dark-classic-menu")
+                ("class", Stdlib.Option.Option.Some $"absolute hidden w-full border rounded-lg {dropdownBg} ")
+              ]
+              [ Stdlib.Html.ul
+                  []
+                  [ Stdlib.Html.li
+                      [ ("class", Stdlib.Option.Option.Some $"{dropdownElemHoverBg} rounded-t-lg") ]
+                      [ Stdlib.Html.a
+                          [ ("class", Stdlib.Option.Option.Some "py-2 px-4 block mx-2 border-b border-b-blue/25")
+                            ("href", Stdlib.Option.Option.Some "/classic")
+                          ]
+                          [ Stdlib.Html.stringNode "About" ]
+                      ]
+
+                    Stdlib.Html.li
+                      [ ("class", Stdlib.Option.Option.Some dropdownElemHoverBg) ]
+                      [ Stdlib.Html.a
+                          [ ("class", Stdlib.Option.Option.Some "py-2 px-4 block mx-2 border-b border-b-blue/25")
+                            ("href", Stdlib.Option.Option.Some "https://login.darklang.com")
+                          ]
+                          [ Stdlib.Html.stringNode "Log in" ]
+                      ]
+
+                    Stdlib.Html.li
+                      [ ("class", Stdlib.Option.Option.Some $"{dropdownElemHoverBg} rounded-b-lg") ]
+                      [ Stdlib.Html.a
+                          [ ("class", Stdlib.Option.Option.Some "py-2 px-4 block")
+                            ("href", Stdlib.Option.Option.Some "./classic/signup")
+                          ]
+                          [ Stdlib.Html.stringNode "Sign up" ]
+                      ]
+                    ]
+              ]
+          ]
+      ]
+
+  Stdlib.Html.div
+    [ ("class", Stdlib.Option.Option.Some $"sticky w-full top-0 left-0 z-50 {bg}" )]
+    [ Stdlib.Html.nav
+        [ ("class", Stdlib.Option.Option.Some "container flex flex-wrap items-center justify-between mx-auto p-4") ]
+        [ Stdlib.Html.a
+            [ ("href", Stdlib.Option.Option.Some "/")
+              ("class", Stdlib.Option.Option.Some "flex items-center")
+            ]
+            [ Stdlib.Html.img
+                [ ("src", Stdlib.Option.Option.Some logopath)
+                  ("class", Stdlib.Option.Option.Some "h-12 mr-3")
+                  ("alt", Stdlib.Option.Option.Some "Darklang logo")
+                ]
+            ]
+
+          Stdlib.Html.div
+            [ ("class", Stdlib.Option.Option.Some "flex md:order-2 justify-center items-center") ]
+            [ Stdlib.Html.button
+                [ ("id", Stdlib.Option.Option.Some "menu-button")
+                  ("type", Stdlib.Option.Option.Some "button")
+                  ("class", Stdlib.Option.Option.Some "inline-flex items-center md:hidden")
+                  ("aria-expanded", Stdlib.Option.Option.Some "false")
+                ]
+                [ Stdlib.Html.svg
+                    [ ("class", Stdlib.Option.Option.Some "w-6 h-6")
+                      ("aria-hidden", Stdlib.Option.Option.Some "true")
+                      ("fill", Stdlib.Option.Option.Some "currentColor")
+                      ("viewBox", Stdlib.Option.Option.Some "0 0 20 20")
+                      ("xmlns", Stdlib.Option.Option.Some "http://www.w3.org/2000/svg")
+                    ]
+                    [ Stdlib.Html.path
+                        [ ("fill-rule", Stdlib.Option.Option.Some "evenodd")
+                          ("d", Stdlib.Option.Option.Some "M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z")
+                          ("clip-rule", Stdlib.Option.Option.Some "evenodd")
+                        ]
+                    ]
+                ]
+            ]
+
+          Stdlib.Html.div
+            [ ("id", Stdlib.Option.Option.Some "menu")
+              ("class", Stdlib.Option.Option.Some "rounded-b-lg bg-md:order-1 hidden md:flex bg-white/70 md:bg-transparent justify-between items-center w-full md:w-auto")
+            ]
+            [ Stdlib.Html.ul
+                [ ("class", Stdlib.Option.Option.Some "flex flex-col md:flex-row md:space-x-8 p-6 md:p-0 mt-4") ]
+                [ //  navItem theme "https://docs.darklang.com" "Documentation"
+                  navItem theme "https://blog.darklang.com" "Blog"
+                  navItem theme "https://darklang.com/discord" "Discord"
+                  navItem theme "https://github.com/darklang/dark" "GitHub"
+                  navItem theme "https://darklang.com/sponsor" "Sponsor us"
+                ]
+            ]
+        ]
+  ]
+
+let body () : Stdlib.Html.Node =
+  Stdlib.Html.body 
+    [ ("class", Stdlib.Option.Option.Some "bg-light-background box-border m-0 p-0") ]
+    [ (navbar ()) ]
+
+
+let doc () : String =
+  Stdlib.Html.document
+    [ (Stdlib.Html.html
+        [("lang", Stdlib.Option.Option.Some "en")]
+        [ (head()); (body()) ]
+      )
+    ]
+
+
+let fillHomePage () : Int64 =
+  let path = "/Users/feriel/PBiggarHomePage/darklang.com/public/new.html"
+  let content =
+    (doc ())
+    |> Stdlib.String.toBytes
+
+  match Builtin.fileWrite content path with
+  | Ok(_)-> 0L
+  | Error(err) ->
+    Builtin.debug "err" err
+    1L
+
+
+fillHomePage()
