@@ -75,7 +75,7 @@ const Editing: React.FC = () => {
             <img
               src="/assets/editing.png"
               alt="Darklang Editor Environment"
-              className="md:max-w-4xl 2xl:max-w-7xl max-h-fit md:absolute md:-right-40 2xl:-right-38"
+              className="md:max-w-xl lg:max-w-2xl xl:max-w-4xl 2xl:relative 2xl:max-w-7xl max-h-fit lg:absolute lg:-right-40 xl:-right-52 2xl:-right-82"
             />
           </div>
         </div>
